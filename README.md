@@ -37,6 +37,9 @@ After docker installed, open terminal in the project root and run:
 LOCALLY:
 
 ```
+provide postgres connection parameters in:
+    ./src/application/.dev
+    
 After the **Prerequisites** are installed, run at the project root:
     1- $ npm run migrations
     2- $ npm run start    

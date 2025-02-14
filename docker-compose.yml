@@ -1,0 +1,47 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:17-bullseye
+    restart: always
+    #build:
+    #  context: .
+    #  target: postgres
+    volumes:
+      - ./src/infrastructure/repository/postgresql/migrations/:/docker-entrypoint-initdb.d/          
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres
+    ports:
+      - "25432:25432"
+    expose:
+      - "25432" # Publishes 5433 to other containers but NOT to host machine
+    command: -p 25432
+    #network_mode: bridge
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  restaurantapi:
+    build: .
+    depends_on: 
+      - postgres 
+    ports:
+      - "3000:3000"
+    links:
+      - postgres      
+    volumes:
+      - ./src/infrastructure/repository/postgresql/migrations:/var/lib/postgresql/api
+
+volumes:
+  pgadmin_data:

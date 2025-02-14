@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./src/application/app.js",
     "migration": "npx sequelize-cli db:migrate --config ./src/infrastructure/repository/postgresql/config/config.cjs --migrations-path ./src/infrastructure/repository/postgresql/migrations --models-path ./src/infrastructure/repository/postgresql/models --seeders-path ./src/infrastructure/repository/postgresql/seeders --debug",
-    "docker": "NODE_ENV=production npx sequelize-cli db:migrate --config ./src/infrastructure/repository/postgresql/config/config.cjs --migrations-path ./src/infrastructure/repository/postgresql/migrations --models-path ./src/infrastructure/repository/postgresql/models --seeders-path ./src/infrastructure/repository/postgresql/seeders --debug && node ./src/application/app.js",
+    "docker": "NODE_ENV=production npx sequelize-cli db:migrate --config ./src/infrastructure/repository/postgresql/config/config.cjs --migrations-path ./src/infrastructure/repository/postgresql/migrations --models-path ./src/infrastructure/repository/postgresql/models --seeders-path ./src/infrastructure/repository/postgresql/seeders --debug && NODE_ENV=production node ./src/application/app.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "type": "module",
